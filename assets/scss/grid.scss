@@ -1,0 +1,40 @@
+@import 'vars';
+
+.container {padding: 0 40px; max-width: 1080px; margin: 0 auto; box-sizing: border-box;
+  &-large {max-width: 1240px;}
+  @media (max-width: $mobile) {padding: 0 20px;
+    &-large {padding: 0 40px;}
+  }
+}
+
+.row {display: flex; flex-direction: row; margin: 0 -30px;
+  align-items: stretch; flex-wrap: wrap;
+}
+.col {flex: 0 0 auto; padding: 0 30px; box-sizing: border-box;
+  &-20 {width: 20%; flex-basis: 20%;}
+  &-25 {width: 25%; flex-basis: 25%;}
+  &-33 {width: 33.33%; flex-basis: 33.33%;}
+  &-50 {width: 50%; flex-basis: 50%;}
+  &-66 {width: 66.66%; flex-basis: 66.66%;}
+  &-75 {width: 75%; flex-basis: 75%;}
+  &-80 {width: 80%; flex-basis: 80%;}
+  @media (max-width: $tablet) {
+    &-tablet-20 {width: 20%; flex-basis: 20%;}
+    &-tablet-25 {width: 25%; flex-basis: 25%;}
+    &-tablet-33 {width: 33.33%; flex-basis: 33.33%;}
+    &-tablet-50 {width: 50%; flex-basis: 50%;}
+    &-tablet-66 {width: 66.66%; flex-basis: 66.66%;}
+    &-tablet-75 {width: 75%; flex-basis: 75%;}
+    &-tablet-80 {width: 80%; flex-basis: 80%;}
+  }
+  @media (max-width: $mobile) {
+    width: 100%; flex-basis: 100%;
+    &-mobile-20 {width: 20%; flex-basis: 20%;}
+    &-mobile-25 {width: 25%; flex-basis: 25%;}
+    &-mobile-33 {width: 33.33%; flex-basis: 33.33%;}
+    &-mobile-50 {width: 50%; flex-basis: 50%;}
+    &-mobile-66 {width: 66.66%; flex-basis: 66.66%;}
+    &-mobile-75 {width: 75%; flex-basis: 75%;}
+    &-mobile-80 {width: 80%; flex-basis: 80%;}
+  }
+}

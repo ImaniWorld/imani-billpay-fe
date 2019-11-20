@@ -1,0 +1,32 @@
+@import 'vars';
+
+/* loading spinner */
+@keyframes spin {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
+.button {background: $primary; background-size: cover; font-size: 1.125rem;
+  font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; box-sizing: border-box;
+  color: #fff; display: inline-block; line-height: 30px; padding: 25px 50px; border-radius: 12px;
+  box-shadow: 0 5px 20px rgba($primary, 0.3); text-align: center; min-width: 130px;
+  transition: all 0.6s;
+  @media (max-width: $mobile) {
+    padding: 15px 30px;
+  }
+  &:hover {background-color: $primary-hover; box-shadow: 0 10px 30px rgba($primary, 0.5); transition: all 0.3s;}
+  &-white {background: #fff; color: $primary;
+    &:hover {background: rgba(255,255,255,0.8);}
+  }
+  &-outline {background: transparent; color: #fff; border: rgba(255,255,255,0.4) 1px solid;
+    border-radius: 12px; padding: 10px 20px;
+    &:hover {background: transparent; color: #fff; border-color: rgba(255,255,255,0.8);}
+  }
+  &-block {display: block; width: 100%;}
+  &.loading {pointer-events: none; opacity: 0.8; position: relative; color: transparent;
+    &::after {position: absolute; width: 16px; height: 16px; border: #fff 3px solid; border-top-color: transparent;
+      animation: spin 1s linear infinite; content: ""; top: 0; left: 0; bottom: 0; right: 0; margin: auto;
+      border-radius: 50%; pointer-events: none;
+    }
+  }
+}

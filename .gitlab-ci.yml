@@ -1,0 +1,60 @@
+stages:
+  - build
+  - deploy
+
+image: projects.ronasit.com:4567/docker/gcloud-sdk:latest
+
+variables:
+  CI_PROJECT_NAME: imani-landing
+  DOMAIN: imanibillpay.ronasit.com
+  DOCKERFILE: ./Dockerfile
+  CHART_REPO: ronasit/static
+  CHART_VERSION: &ref "0.9.5-alpha"
+  CHART_VALUES: k8s/values.yaml
+  DOCKER_CONTAINER_REGISTRY: gcr.io/ronas-it-development/${CI_PROJECT_NAME}-${CI_ENVIRONMENT_SLUG}
+
+include:
+  - project: 'k8s-tools/charts/static'
+    ref: *ref
+    file: '/helpers/.gitlab-ci-template.yml'
+
+build:
+  stage: build
+  image: node:11
+  tags:
+    - docker
+    - linux
+  script:
+    - npm i
+    - npx nuxt build
+    - npx nuxt generate
+  artifacts:
+    paths:
+        - dist/
+
+deploy_development:
+    environment:
+      name: "development"
+      url: https://dev.${DOMAIN}    
+    extends: .deploy
+    only: 
+      - development
+
+deploy_production:
+  stage: deploy
+  variables:
+    DOCKER_CONTAINER_REGISTRY: gcr.io/ronas-it/${CI_PROJECT_NAME}
+    GCLOUD_PROJECT: ronas-it
+    GCLOUD_CLUSTER: production-new
+    GCLOUD_ZONE: us-central1-a
+  before_script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - gcloud config set project ${GCLOUD_PROJECT}
+    - gcloud container clusters get-credentials --zone=${GCLOUD_ZONE} ${GCLOUD_CLUSTER}
+  extends: .deploy   
+  environment:
+    name : "production"
+    url: https://${DOMAIN}
+  only:
+    - production

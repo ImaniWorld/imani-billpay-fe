@@ -1,0 +1,8 @@
+
+.icon {width: 25px; height: 25px; display: inline-block; vertical-align: top;
+  --bg-position: 25px 25px;
+  background: url(/img/icons.svg) 25px 25px no-repeat; background-position: var(--bg-position);
+  &-menu {--bg-position: -25px -150px;}
+  &-phone {--bg-position: 0 0; width: 150px; height: 150px;}
+  &-mask {background: $primary; mask: url(/img/icons.svg) 25px 25px no-repeat; mask-position: var(--bg-position); }
+}
